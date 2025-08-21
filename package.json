@@ -1,0 +1,34 @@
+{
+  "name": "clubhouse-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dakshesh29/clubhouse-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dakshesh29/clubhouse-app/issues"
+  },
+  "homepage": "https://github.com/Dakshesh29/clubhouse-app#readme",
+  "dependencies": {
+    "async": "^3.2.6",
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^17.2.1",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "express-validator": "^7.2.1",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.16.3",
+    "sequelize": "^6.37.7"
+  }
+}
