@@ -1,0 +1,22 @@
+DROP TABLE IF EXISTS messages;
+DROP TABLE IF EXISTS users;
+
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    "firstName" VARCHAR(255) NOT NULL,
+    "lastName" VARCHAR(255) NOT NULL,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    "isMember" BOOLEAN DEFAULT false,
+    "isAdmin" BOOLEAN DEFAULT false,
+    "createdAt" TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE messages (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    text TEXT NOT NULL,
+    "userId" INTEGER REFERENCES users(id) ON DELETE CASCADE, 
+    "createdAt" TIMESTAMTampTZ NOT NULL DEFAULT NOW()
+);
