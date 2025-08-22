@@ -1,30 +1,20 @@
 import express from "express";
-import sequelize from "./config/db.js";
+import path from "path";
+import { fileURLToPath } from "url";
+
 import indexRouter from "./routes/index.js";
 
-const app = express();
-const PORT = 3000;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+const app = express();
+
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", (req, res) => {
-  res.render("index");
-});
 app.use("/", indexRouter);
 
-const startApp = async () => {
-  try {
-    await sequelize.sync();
-    console.log("Database synced successfully.");
-
-    app.listen(PORT, () => {
-      console.log(`Server is listening on port ${PORT}`);
-    });
-  } catch (error) {
-    console.error("Unable to start the app:", error);
-  }
-};
-
-startApp();
+const port = 3000;
+app.listen(port, () => console.log(`App listening on port ${port}!`));
