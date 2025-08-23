@@ -2,10 +2,46 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Clubhouse</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
   </head>
   <body>
-    <h1>Welcome to the Clubhouse!</h1>
-    <p>Our super-secret message board.</p>
+    <div>
+      <h1><%= title %></h1>
+
+      <% if (currentUser) { %>
+      <p>Welcome back, <%= currentUser.firstName %>!</p>
+      <a href="/log-out">Log Out</a>
+      <% } else { %>
+      <p>
+        Welcome! Please <a href="/log-in">log in</a> or
+        <a href="/sign-up">sign up</a>.
+      </p>
+      <% } %>
+
+      <hr />
+
+      <h2>Messages</h2>
+      <div>
+        <% if (messages.length > 0) { %> <% messages.forEach(message => { %>
+        <div>
+          <h3><%= message.title %></h3>
+          <p><%= message.text %></p>
+
+          <% if (currentUser && currentUser.isMember) { %>
+          <small
+            >by <%= message.author %> on <%= message.createdAt.toDateString()
+            %></small
+          >
+          <% } else { %>
+          <small>by Anonymous</small>
+          <% } %>
+          <hr />
+        </div>
+        <% }) %> <% } else { %>
+        <p>No messages yet. Be the first to post!</p>
+        <% } %>
+      </div>
+    </div>
   </body>
 </html>

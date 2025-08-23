@@ -74,4 +74,59 @@ router.get("/log-out", (req, res, next) => {
   });
 });
 
+router.get("/new-message", (req, res, next) => {
+  if (!req.user) {
+    return res.redirect("/log-in");
+  }
+  res.render("newMessageForm");
+});
+
+router.post("/new-message", async (req, res, next) => {
+  if (!req.user) {
+    return res.redirect("/log-in");
+  }
+
+  try {
+    const { title, text } = req.body;
+
+    const userId = req.user.id;
+
+    const queryText =
+      'INSERT INTO messages(title, text, "userId") VALUES($1, $2, $3)';
+    await db.query(queryText, [title, text, userId]);
+
+    res.redirect("/");
+  } catch (err) {
+    return next(err);
+  }
+});
+
+router.get("/", async (req, res, next) => {
+  try {
+    const queryText = `
+      SELECT 
+        messages.title, 
+        messages.text, 
+        messages."createdAt", 
+        users."firstName", 
+        users."lastName" 
+      FROM messages 
+      JOIN users ON messages."userId" = users.id 
+      ORDER BY messages."createdAt" DESC`;
+
+    const { rows } = await db.query(queryText);
+
+    const messages = rows.map((row) => ({
+      title: row.title,
+      text: row.text,
+      createdAt: row.createdAt,
+      author: `${row.firstName} ${row.lastName}`,
+    }));
+
+    res.render("index", { title: "Clubhouse Messages", messages: messages });
+  } catch (err) {
+    return next(err);
+  }
+});
+
 export default router;

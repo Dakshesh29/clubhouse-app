@@ -3,6 +3,7 @@ import path from "path";
 import session from "express-session";
 import passport from "./passport-config.js";
 import { fileURLToPath } from "url";
+import "dotenv/config";
 
 import indexRouter from "./routes/index.js";
 
