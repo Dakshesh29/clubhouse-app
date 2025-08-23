@@ -1,5 +1,6 @@
 import express from "express";
 import bcrypt from "bcryptjs";
+import passport from "passport";
 import db from "../config/db.js";
 
 const router = express.Router();
@@ -50,6 +51,27 @@ router.post("/sign-up", async (req, res, next) => {
   } catch (err) {
     return next(err);
   }
+});
+
+router.get("/log-in", (req, res, next) => {
+  res.render("logInForm");
+});
+
+router.post(
+  "/log-in",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/log-in",
+  })
+);
+
+router.get("/log-out", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
 });
 
 export default router;
