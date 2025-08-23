@@ -9,8 +9,16 @@
     <div>
       <h1><%= title %></h1>
 
-      <% if (currentUser) { %>
+      <% if (currentUser) %> <% if (currentUser) { %>
       <p>Welcome back, <%= currentUser.firstName %>!</p>
+
+      <% if (currentUser.isMember) { %>
+      <a href="/new-message">Create New Message</a>
+      <% } else { %>
+      <a href="/join-club">Join the Club</a>
+      <% } %>
+
+      <br />
       <a href="/log-out">Log Out</a>
       <% } else { %>
       <p>

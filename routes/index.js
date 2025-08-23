@@ -129,4 +129,33 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+const MEMBER_PASSCODE = process.env.MEMBER_PASSCODE;
+
+router.get("/join-club", (req, res, next) => {
+  if (!req.user) {
+    return res.redirect("/log-in");
+  }
+  res.render("joinClubForm");
+});
+
+router.post("/join-club", async (req, res, next) => {
+  if (!req.user) {
+    return res.redirect("/log-in");
+  }
+
+  try {
+    if (req.body.passcode === MEMBER_PASSCODE) {
+      // If passcode is correct, update the user's status
+      const queryText = 'UPDATE users SET "isMember" = true WHERE id = $1';
+      await db.query(queryText, [req.user.id]);
+      res.redirect("/");
+    } else {
+      // If passcode is incorrect, re-render the form with an error
+      res.render("joinClubForm", { error: "Incorrect passcode." });
+    }
+  } catch (err) {
+    return next(err);
+  }
+});
+
 export default router;

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join the Club</title>
+  </head>
+  <body>
+    <div>
+      <h1>Join the Club</h1>
+      <p>
+        Enter the secret passcode to become a full member and see who wrote each
+        post!
+      </p>
+      <form method="POST" action="/join-club">
+        <div>
+          <label for="passcode">Secret Passcode:</label>
+          <input id="passcode" type="password" name="passcode" required />
+        </div>
+        <button type="submit">Join</button>
+      </form>
+
+      <% if (typeof error !== 'undefined') { %>
+      <hr />
+      <p style="color: red"><%= error %></p>
+      <% } %>
+    </div>
+  </body>
+</html>
