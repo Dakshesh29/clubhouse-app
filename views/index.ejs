@@ -67,7 +67,8 @@
           'Anonymous Member' %>
         </p>
         <p class="text-sm text-gray-500">
-          Posted on <%= message.createdAt.toDateString() %>
+          Posted on <%= message.createdAt.toLocaleString('en-US', { dateStyle:
+          'medium', timeStyle: 'short' }) %>
         </p>
       </div>
     </div>

@@ -39,43 +39,25 @@
         >
           <a href="/" class="text-2xl font-bold text-white">The Clubhouse</a>
           <div>
-            <% if (currentUser) { %>
-            <span class="text-gray-300 text-sm mr-4"
-              >Welcome, <%= currentUser.firstName %></span
-            >
-            <% if (currentUser.isMember || currentUser.isAdmin) { %>
-            <a
-              href="/new-message"
-              class="text-sm font-medium text-gray-300 hover:text-white mr-5"
-              >New Post</a
-            >
-            <% } else { %>
-            <a
-              href="/join-club"
-              class="text-sm font-medium text-gray-300 hover:text-white mr-5"
-              >Join Club</a
-            >
-            <% } %>
-            <a
-              href="/log-out"
-              class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700"
-            >
-              Log Out
-            </a>
-            <% } else { %>
-            <a
-              href="/log-in"
-              class="text-sm font-medium text-gray-300 hover:text-white mr-5"
-              >Log In</a
-            >
-            <a
-              href="/sign-up"
-              class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white gradient-button hover:opacity-90 transition-opacity"
-            >
-              Become a Member
-            </a>
-            <% } %>
-          </div>
+    <% if (currentUser) { %>
+        <span class="text-gray-300 text-sm mr-4">Welcome, <%= currentUser.firstName %></span>
+        
+        <a href="/new-message" class="text-sm font-medium text-gray-300 hover:text-white mr-5">New Post</a>
+        
+        <% if (!currentUser.isMember && !currentUser.isAdmin) { %>
+             <a href="/join-club" class="text-sm font-medium text-gray-300 hover:text-white mr-5">Join Club</a>
+        <% } %>
+
+        <a href="/log-out" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700">
+            Log Out
+        </a>
+    <% } else { %>
+        <a href="/log-in" class="text-sm font-medium text-gray-300 hover:text-white mr-5">Log In</a>
+        <a href="/sign-up" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white gradient-button hover:opacity-90 transition-opacity">
+            Become a Member
+        </a>
+    <% } %>
+</div>
         </div>
       </div>
     </header>
